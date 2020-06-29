@@ -15,9 +15,9 @@ from typing import Tuple, Callable
 from fastprogress import master_bar, progress_bar
 
 #from yamlf
-import .metrics as yamlf_metrics
-from .utils import calc_time_taken
-from .vision import LoadData
+import yamlf.metrics as yamlf_metrics
+from yamlf.utils import calc_time_taken
+from yamlf.vision import LoadData
 
 
 ######################## FUNCTIONS #################################
