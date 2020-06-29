@@ -2,7 +2,7 @@ from distutils.core import setup
 setup(
   name = 'yamlf',         # How you named your package folder (MyLib)
   packages = ['yamlf'],   # Chose the same as "name"
-  version = 'v0.1.2',      # Start with a small number and increase it with every change you make
+  version = 'v0.1.3',      # Start with a small number and increase it with every change you make
   license='MIT',        # Chose a license from here: https://help.github.com/articles/licensing-a-repository
   description = 'Yet Another Machine Learning Framework (YAMLF)* is a lite machine learning and deep learning models training and inference framework. It contains data augmentations, data loaders, training routines that we usally rewrite for every ML project.',   # Give a short description about your library
   author = 'Jitender Singh Virk',                   # Type in your name
