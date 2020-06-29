@@ -15,9 +15,9 @@ from typing import Tuple, Callable
 from fastprogress import master_bar, progress_bar
 
 #from yamlf
-import metrics as yamlf_metrics
-from utils import calc_time_taken
-from vision import LoadData
+import .metrics as yamlf_metrics
+from .utils import calc_time_taken
+from .vision import LoadData
 
 
 ######################## FUNCTIONS #################################
@@ -41,13 +41,13 @@ def update_dict(original_dict, new_dict):
 ########################### CLASSES ##############################
 # Base trainer class
 class Trainer(object):
-    def __init__(self, 
+    def __init__(self,
         data:Tuple[dict, LoadData],
         net:torch.nn.Module,
         criterion:torch.nn.Module,
         opt_func:torch.optim.Optimizer=torch.optim.Adam,
         metrics:Tuple[yamlf_metrics.SKMetrics, yamlf_metrics.Metrics, str, Callable, list]=None,
-        defs:dict=None, 
+        defs:dict=None,
         mixed_precision:bool=False,
         batch_lrs_func:torch.optim.lr_scheduler._LRScheduler=OneCycleLR,
         epoch_lrs_func:torch.optim.lr_scheduler._LRScheduler=None,
@@ -127,7 +127,7 @@ class Trainer(object):
                     scaled_loss.backward()
             else: loss.backward()
             self.optimizer.step()
-        
+
         # return preds and true labels for evaluation
         if self.metrics == None: return loss.item(), None
         else: return loss.item(), {'y_pred':y_pred, 'y_true': y_true}
@@ -151,7 +151,7 @@ class Trainer(object):
                 self.tbwriter.add_scalar('Loss/train', b_loss, self.tbc)
                 if self.metrics != None: self.tbwriter.add_scalars('Metrics/train',   b_metrics, self.tbc)
                 self.tbc += 1
-                
+
         return np.mean(oe_loss), {k:np.mean(oe_metrics[k]) for k in oe_metrics}
 
     def validate(self, val_iters):
@@ -212,7 +212,7 @@ class Trainer(object):
                 if self.metrics != None:
                     self.tbwriter.add_scalars('Metrics/train', toe_metrics, epoch)
                     self.tbwriter.add_scalars('Metrics/val',   val_metrics, epoch)
-            
+
             if isinstance(val_loss, list): val_loss = val_loss[0] # temporary fix for single valset
             if val_loss < best_val_loss:
                 if not self.low_storage: self.save_weights(self.chkptdir/'best_val_loss.pt')
@@ -226,7 +226,7 @@ class Trainer(object):
                 if len(self.val_dl) > 1:
                     header += [f'val_loss{i}' for i in range(len(self.val_dl))]
                     header += [f"val_{k}" for vm in val_metrics for k in vm.keys()]
-                else: 
+                else:
                     header += ['val_loss']
                     header += [f"val_{k}" for k in val_metrics.keys()]
                 header += ['time'] # display time taken for one epoch
@@ -234,7 +234,7 @@ class Trainer(object):
                 first_epoch_flag = False
             # count time taken by one epoch
             _txt = [epoch, round(toe_loss, 5)]+[round(_t, 5) for _t in toe_metrics.values()]
-            if len(self.val_dl) > 1: 
+            if len(self.val_dl) > 1:
                 _txt += [round(vl, 5) for vl in val_loss]
                 _txt += [round(v, 5) for vm in val_metrics for v in vm.values()]
             else:
@@ -334,4 +334,3 @@ class Trainer(object):
             y_true = y_true.detach().cpu().numpy().flatten()
             return self.metrics(y_true, y_pred)
         else: raise ValueError(f"Problem in {self.__name__}.compute_metrics method. Check y_pred and y_true.")
-
