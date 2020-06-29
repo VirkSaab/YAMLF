@@ -8,7 +8,7 @@ setup(
   author = 'Jitender Singh Virk',                   # Type in your name
   author_email = 'krivsj@gmail.com',      # Type in your E-Mail
   url = 'https://github.com/VirkSaab/YAMLF',   # Provide either the link to your github or to your website
-  download_url = 'https://github.com/VirkSaab/YAMLF/archive/v0.1.2.tar.gz',    # release url
+  download_url = 'https://github.com/VirkSaab/YAMLF/archive/v0.1.3.tar.gz',    # release url
   keywords = ['Machine Learning', 'Deep Learning', 'PyTorch'],   # Keywords that define your package best
   install_requires=[            # dependencies
           'torch',
