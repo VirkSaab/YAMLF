@@ -62,5 +62,5 @@ class DefaultSettings:
 
     @classmethod
     def init(cls, datadir:Tuple[str, pathlib.Path]=None,
-    chkptdir:Tuple[str, pathlib.Path]=None, low_storage:bool=False, **kwargs):
+    chkptdir:Tuple[str, pathlib.Path]=None, low_storage:bool=False, **kwargs) -> dict:
         return cls(datadir=datadir, chkptdir=chkptdir, low_storage=low_storage, **kwargs).__dict__
