@@ -5,6 +5,7 @@ Last updated: 29 Jun 2020
 """
 
 from typing import Tuple
+from easydict import EasyDict as edict
 from torch.utils.tensorboard import SummaryWriter
 import torch, datetime, pathlib
 
@@ -63,4 +64,4 @@ class DefaultSettings:
     @classmethod
     def init(cls, datadir:Tuple[str, pathlib.Path]=None,
     chkptdir:Tuple[str, pathlib.Path]=None, low_storage:bool=False, **kwargs) -> dict:
-        return cls(datadir=datadir, chkptdir=chkptdir, low_storage=low_storage, **kwargs).__dict__
+        return edict(cls(datadir=datadir, chkptdir=chkptdir, low_storage=low_storage, **kwargs).__dict__)

@@ -4,12 +4,14 @@ Author: Jitender Singh Virk [virksaab.github.io]
 Last updated: 29 Jun 2020
 """
 
-import torch
+import torch, PIL
 import torchvision as tv
 import albumentations as alb
 import matplotlib.pyplot as plt
+import matplotlib.patches as mpatch
 from albumentations.pytorch.transforms import ToTensorV2 as ToTensor
 from typing import Tuple, List
+from easydict import EasyDict
 
 # This monkey-patch is there to be able to plot tensors (from fastai)
 torch.Tensor.ndim = property(lambda x: len(x.shape))
@@ -47,7 +49,7 @@ class LoadData:
         valset(Dataset or list of Dataset class): val dataset class
         testset(Dataset or list of Dataset class): test dataset class
         collate_fn (Callable): batch making function
-        defs(EasyDict): default settings dict
+        defs(EasyDict or dict): default settings dict
     """
     def __init__(self,
         trainset:Tuple[torch.utils.data.Dataset, List[torch.utils.data.Dataset]],
@@ -55,7 +57,7 @@ class LoadData:
         testset:Tuple[torch.utils.data.Dataset, List[torch.utils.data.Dataset]]=None,
         shuffle:bool=True,
         collate_fn=None,
-        defs:dict=None
+        defs:Tuple[EasyDict, dict]=None
     ):
 
         if defs == None: raise AttributeError('Please pass default settings dict as defs=<DefaultSettings>')
