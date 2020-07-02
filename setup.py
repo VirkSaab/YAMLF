@@ -11,6 +11,8 @@ setup(
   download_url = 'https://github.com/VirkSaab/YAMLF/archive/v0.1.5.tar.gz',    # release url
   keywords = ['Machine Learning', 'Deep Learning', 'PyTorch'],   # Keywords that define your package best
   install_requires=[            # dependencies
+          'easydict',
+          'pillow',
           'torch',
           'torchvision',
           'numpy',
