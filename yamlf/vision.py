@@ -5,6 +5,7 @@ Last updated: 29 Jun 2020
 """
 
 import torch, PIL
+import torch.nn as nn
 import torchvision as tv
 import albumentations as alb
 import matplotlib.pyplot as plt
